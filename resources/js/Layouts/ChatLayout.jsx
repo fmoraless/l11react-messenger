@@ -1,6 +1,5 @@
 import { usePage } from "@inertiajs/react";
 import { useEffect } from "react";
-import Echo from "laravel-echo";
 
 const ChatLayout = ({ children }) => {
     const page = usePage();
@@ -11,18 +10,21 @@ const ChatLayout = ({ children }) => {
     console.log("selectedConversations", selectedConversation);
 
     useEffect(() => {
-        Echo.join("online")
+        //:TODO: With Echo listen when the users sign in with online channel.
+        // there is an error with join en Echo.join, returns
+
+        Echo.join('online')
             .here((users) => {
-                console.log("here", users);
+                console.log("users", users);
             })
             .joining((user) => {
-                console.log("joining", user);
+                console.log(user.name);
             })
             .leaving((user) => {
-                console.log("leaving", user);
+                console.log(user.name);
             })
             .error((error) => {
-                console.error("error", error);
+                console.error(error);
             });
     }, []);
 
